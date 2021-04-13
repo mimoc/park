@@ -33,9 +33,9 @@ public class ParkController {
         return ResponseEntity.ok(parkService.findByCode(parkCode));
     }
 
-    @GetMapping(consumes = { "application/json" },produces = { "application/json" })
+    @GetMapping
     public ResponseEntity<List<Park>> getAllParks(@RequestParam(name = STATE_CODE, required = false)  String stateCode,
-                                                    @RequestParam(name = LIMIT, required = false,defaultValue = "50")  Integer limit,
+                                                    @RequestParam(name = LIMIT, required = false,defaultValue = "10")  Integer limit,
                                                     @RequestParam(name = START,required = false,defaultValue = "1")  Integer start) {
 
         MultiValueMap queryParams = new LinkedMultiValueMap();
