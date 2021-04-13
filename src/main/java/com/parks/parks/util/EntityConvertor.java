@@ -40,7 +40,6 @@ public class EntityConvertor {
 
     public static ActivityEntity activityDTOToEntity(Activity activity){
         ActivityEntity activityEntity = new ActivityEntity();
-        //activityEntity.setId(UUID.fromString(activityDTO.getId()));
         activityEntity.setName(activity.getName());
         return activityEntity;
     }

@@ -10,7 +10,6 @@ import java.util.UUID;
 @Table(name="Park")
 public class ParkEntity {
     @Id
-
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="park_id", columnDefinition = "BINARY(16)",nullable=false,unique = true)
     private UUID id;

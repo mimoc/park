@@ -13,7 +13,7 @@ public class ActivityEntity {
     private UUID id;
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name="park_id")
     private ParkEntity park;
 

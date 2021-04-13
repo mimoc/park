@@ -2,13 +2,6 @@ package com.parks.parks.util;
 
 public class Const {
 
-    /*
-    *  this.id = id;
-        this.url = url;
-        this.fullName = fullName;
-        this.parkCode = parkCode;
-        this.activities = activities;*/
-
     public static final String LIMIT = "limit";
     public static final String STATE_CODE = "stateCode";
     public static final String START = "start";
