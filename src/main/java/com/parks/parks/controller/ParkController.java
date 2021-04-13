@@ -25,7 +25,7 @@ public class ParkController {
     @Autowired
     ParkService parkService;
 
-    @GetMapping("/{parkCode}")
+    @GetMapping(value = "/{parkCode}",produces = { "application/json" })
     public ResponseEntity<Park> getParkByCode(@PathVariable(name="parkCode")
                                                   @NotBlank
                                                   @Size(min=4, max=10,message="Park code must have between 4 and 10 characters") String parkCode) {
@@ -33,7 +33,7 @@ public class ParkController {
         return ResponseEntity.ok(parkService.findByCode(parkCode));
     }
 
-    @GetMapping
+    @GetMapping(produces = { "application/json" })
     public ResponseEntity<List<Park>> getAllParks(@RequestParam(name = STATE_CODE, required = false)  String stateCode,
                                                     @RequestParam(name = LIMIT, required = false,defaultValue = "10")  Integer limit,
                                                     @RequestParam(name = START,required = false,defaultValue = "1")  Integer start) {
