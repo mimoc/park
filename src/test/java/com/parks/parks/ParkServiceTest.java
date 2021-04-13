@@ -28,12 +28,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(MockitoExtension.class)
 public class ParkServiceTest {
     @Mock
-    ParkRepository mockParkRepository;
+    private ParkRepository mockParkRepository;
     @Mock
-    ParkClient parkClient;
+    private ParkClient parkClient;
 
     @InjectMocks
-    ParkService parkService = new ParkServiceImpl();
+    private  ParkService parkService = new ParkServiceImpl();
+
     private static ParkEntity parkEntity;
     private static Park park ;
 
@@ -52,7 +53,7 @@ public class ParkServiceTest {
     }
 
     @Test
-    public void testUpdateThrowsParkNotFoundException(){
+    public void testWhenUpdateThenThrowsNotFoundException(){
         String parkCode = "parkCode";
         Mockito.when(mockParkRepository.findByParkCode(Mockito.any(String.class))).thenReturn(null);
         park.setParkCode(parkCode);

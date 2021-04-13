@@ -7,6 +7,7 @@ import com.parks.parks.exception.NotFoundException;
 import com.parks.parks.exception.handler.CustomizedResponseEntityExceptionHandler;
 import com.parks.parks.repository.ParkRepository;
 import com.parks.parks.service.ParkService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,20 +39,16 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ExtendWith(MockitoExtension.class)
 public class ParkControllerTest {
 
-    private static MockMvc mvc;
-
     @Mock
-    ParkService mockParkService;
-
-    @Mock
-    ParkRepository parkRepository;
+    private ParkService mockParkService;
 
     @InjectMocks
-    ParkController mockParkController;
+    private static ParkController mockParkController;
 
     private JacksonTester<Park> jsonConverter;
+    private static MockMvc mvc;
+    private static Park park ;
 
-     Park park ;
 
     @BeforeEach
     void setUp(){
@@ -75,7 +72,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenPostIsSuccessfulOKStatusIsReturned() throws Exception {
+    void testWhenPostIsSuccessfulCreatedStatusIsReturned() throws Exception {
         String parkCode = "parkCode";
 
         String json = String.valueOf(jsonConverter.write(park).getJson());
@@ -90,7 +87,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenPutDoesNotFindResourceNOT_FOUNDReturned() throws Exception {
+    void testWhenPutDoesNotFindResourceNotFoundIsReturned() throws Exception {
         String parkCode = "parkCode";
         String json = String.valueOf(jsonConverter.write(park).getJson());
         Mockito.when(mockParkService.update(Mockito.any(String.class),Mockito.any(Park.class))).thenThrow(new NotFoundException("Not found"));
@@ -104,7 +101,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenFindByCodeThenReturnsOKStatus() throws Exception {
+    void testWhenFindByCodeThenOkStatusIsReturned() throws Exception {
         String parkCode = "parkCode";
         String json = String.valueOf(jsonConverter.write(park).getJson());
         Mockito.when(mockParkService.findByCode(Mockito.any(String.class))).thenReturn(park);
@@ -118,7 +115,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenFindAllThenReturnsOKStatus() throws Exception {
+    void testWhenFindAllThenOKStatusIsReturned() throws Exception {
         ArrayList arrayList = new ArrayList();
         arrayList.add(park);
         String json = String.valueOf(jsonConverter.write(park).getJson());
@@ -133,7 +130,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenPostHasTooShortParkCodeThenBad_requestIsReturned() throws Exception {
+    void testWhenPostHasTooShortParkCodeThenBadRequestIsReturned() throws Exception {
         park.setParkCode("ss");
         String json = String.valueOf(jsonConverter.write(park).getJson());
         MockHttpServletResponse response = mvc.perform(
@@ -146,7 +143,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenPostHasInvalidFullNameThenBad_requestIsReturned() throws Exception {
+    void testWhenPostHasInvalidFullNameThenBadRequestIsReturned() throws Exception {
         park.setFullName(null);
         String json = String.valueOf(jsonConverter.write(park).getJson());
         MockHttpServletResponse response = mvc.perform(
@@ -159,7 +156,7 @@ public class ParkControllerTest {
     }
 
     @Test
-    void testWhenPutHasInvalidFullNameThenBad_requestIsReturned() throws Exception {
+    void testWhenPutHasInvalidFullNameThenBadRequestIsReturned() throws Exception {
         String parkCode = "parkCode";
         park.setFullName(null);
         String json = String.valueOf(jsonConverter.write(park).getJson());
